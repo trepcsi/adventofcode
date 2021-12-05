@@ -1,15 +1,12 @@
 package com.trepcsi;
 
-import com.trepcsi.day1.Solver1;
-import com.trepcsi.day2.Solver2;
-import com.trepcsi.day3.Solver3;
-import com.trepcsi.day4.Solver4;
+import com.trepcsi.day5.Solver5;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Solver1 solver1 = new Solver1("./src/com/trepcsi/day1/input.txt");
+        /*Solver1 solver1 = new Solver1("./src/com/trepcsi/day1/input.txt");
         System.out.println(solver1.solveA());
         System.out.println(solver1.solveB());
 
@@ -23,6 +20,9 @@ public class Main {
 
         Solver4 solver4 = new Solver4("./src/com/trepcsi/day4/input.txt");
         System.out.println(solver4.solveA());
-        System.out.println(solver4.solveB());
+        System.out.println(solver4.solveB());*/
+
+        Solver5 solver5 = new Solver5("./src/com/trepcsi/day5/input.txt");
+        System.out.println(solver5.solveA());
     }
 }
