@@ -25,7 +25,12 @@ public class Solver5 {
     }
 
     public int solveA(){
-        Field f = new Field(lines);
+        Field f = new Field(lines, false);
+        return f.countOverlaps();
+    }
+
+    public int solveB(){
+        Field f = new Field(lines, true);
         return f.countOverlaps();
     }
 

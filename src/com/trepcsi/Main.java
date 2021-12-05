@@ -24,5 +24,6 @@ public class Main {
 
         Solver5 solver5 = new Solver5("./src/com/trepcsi/day5/input.txt");
         System.out.println(solver5.solveA());
+        System.out.println(solver5.solveB());
     }
 }
