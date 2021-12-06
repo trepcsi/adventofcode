@@ -1,6 +1,7 @@
 package com.trepcsi;
 
 import com.trepcsi.day5.Solver5;
+import com.trepcsi.day6.Solver6;
 
 public class Main {
 
@@ -20,10 +21,14 @@ public class Main {
 
         Solver4 solver4 = new Solver4("./src/com/trepcsi/day4/input.txt");
         System.out.println(solver4.solveA());
-        System.out.println(solver4.solveB());*/
+        System.out.println(solver4.solveB());
 
         Solver5 solver5 = new Solver5("./src/com/trepcsi/day5/input.txt");
         System.out.println(solver5.solveA());
-        System.out.println(solver5.solveB());
+        System.out.println(solver5.solveB());*/
+
+        Solver6 solver6 = new Solver6("./src/com/trepcsi/day6/input.txt");
+        System.out.println(solver6.solveA());
+        System.out.println(solver6.solveB());
     }
 }
