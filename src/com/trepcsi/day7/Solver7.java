@@ -27,7 +27,7 @@ public class Solver7 {
         for (int i = 0; i < Collections.max(points); i++) {
             int sum = 0;
             for (Integer point : points) {
-                sum += Math.abs(point - i);
+                sum += moveCostA(point, i);
             }
             results.add(sum);
         }
@@ -40,7 +40,7 @@ public class Solver7 {
         for (int i = 0; i < Collections.max(points); i++) {
             int sum = 0;
             for (Integer point : points) {
-                sum += moveCost(point, i);
+                sum += moveCostB(point, i);
             }
             results.add(sum);
         }
@@ -48,10 +48,15 @@ public class Solver7 {
     }
 
     //TODO create a function which expects move-cost function parameter
+    //like -> line 30/43  sum += this function(point, i)
 
-    private int moveCost(int start, int finish) {
+    private int moveCostB(int start, int finish) {
         int length = Math.abs(finish - start);
         return length * (length + 1) / 2;
+    }
+
+    private int moveCostA(int start, int finish) {
+        return Math.abs(start - finish);
     }
 
     private void fillData(String line) {
