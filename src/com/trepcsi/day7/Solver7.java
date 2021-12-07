@@ -5,9 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Solver7 {
 
@@ -20,14 +18,6 @@ public class Solver7 {
             fillData(reader.readLine());
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void fillData(String line) {
-        String[] numbers = line.split(",");
-        for (String number : numbers) {
-            var n = Integer.parseInt(number);
-            points.add(n);
         }
     }
 
@@ -57,8 +47,18 @@ public class Solver7 {
         return Collections.min(results);
     }
 
+    //TODO create a function which expects move-cost function parameter
+
     private int moveCost(int start, int finish) {
         int length = Math.abs(finish - start);
         return length * (length + 1) / 2;
+    }
+
+    private void fillData(String line) {
+        String[] numbers = line.split(",");
+        for (String number : numbers) {
+            var n = Integer.parseInt(number);
+            points.add(n);
+        }
     }
 }
