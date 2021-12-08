@@ -3,6 +3,7 @@ package com.trepcsi;
 import com.trepcsi.day5.Solver5;
 import com.trepcsi.day6.Solver6;
 import com.trepcsi.day7.Solver7;
+import com.trepcsi.day8.Solver8;
 
 public class Main {
 
@@ -32,8 +33,12 @@ public class Main {
         System.out.println(solver6.solveA());
         System.out.println(solver6.solveB());*/
 
-        Solver7 solver7 = new Solver7("./src/com/trepcsi/day7/input.txt");
+        /*Solver7 solver7 = new Solver7("./src/com/trepcsi/day7/input.txt");
         System.out.println(solver7.SolveA());
-        System.out.println(solver7.SolveB());
+        System.out.println(solver7.SolveB());*/
+
+        Solver8 solver8 = new Solver8("./src/com/trepcsi/day8/input.txt");
+        System.out.println(solver8.solveA());
+        //System.out.println(solver8.SolveB());
     }
 }
