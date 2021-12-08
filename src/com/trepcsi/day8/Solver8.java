@@ -127,17 +127,6 @@ public class Solver8 {
         this.output.add(output);
     }
 
-    /*
-    case "ab" -> 1;
-            case "gcdfa" -> 2;
-            case "fbcad" -> 3;
-            case "eafb" -> 4;
-            case "cdfbe" -> 5;
-            case "cdfgeb" -> 6;
-            case "dab" -> 7;
-            case "acedgfb" -> 8;
-            case "cefabd" -> 9;
-     */
     public int mapValues(String code) {
         List<List<Character>> values = map.values().stream().toList();
         for (List<Character> value : values) {
