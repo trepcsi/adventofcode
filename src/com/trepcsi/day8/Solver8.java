@@ -61,7 +61,7 @@ public class Solver8 {
         for (String s : allData) {
             if (s.length() == 7) map.put(8, s.chars().mapToObj(c -> (char) c).collect(Collectors.toList()));
         }
-        //6,9
+        //6,9,0
         for (String s : allData) {
             if (s.length() == 6) {
                 List<Character> sChars = s.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
