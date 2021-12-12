@@ -128,7 +128,7 @@ public class Solver8 {
     }
 
     public int mapValues(String code) {
-        List<List<Character>> values = map.values().stream().toList();
+        List<List<Character>> values = new ArrayList<>(map.values());
         for (List<Character> value : values) {
             if (sameChars(value, code)) {
                 for (Map.Entry<Integer, List<Character>> entry : map.entrySet()) {
