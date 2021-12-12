@@ -61,8 +61,9 @@ public class Solver12 {
             String next = validPathsFromNode.get(node).get(i);
             if (!isVisited.get(next)) {
                 localPathList.add(next);
+                int index = localPathList.size();
                 search(next, isVisited, localPathList);
-                localPathList.remove(next);
+                localPathList.remove(index-1);
             }
         }
         isVisited.put(node, false);
