@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Solver12 solver12 = new Solver12("./src/com/trepcsi/day12/test.txt");
+        Solver12 solver12 = new Solver12("./src/com/trepcsi/day12/input.txt");
         System.out.println(solver12.solveA());
     }
 }
