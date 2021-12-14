@@ -12,8 +12,7 @@ public class Solver14 {
 
     private String polymer = "";
     private final Map<String, String> reactions = new HashMap<>();
-    private HashMap<Character, Long> letterCounterMap = new HashMap<>();
-    private char lastLetter = 'c';
+    private final HashMap<Character, Long> letterCounterMap = new HashMap<>();
 
     private HashMap<Integer, List<HashMap<String, HashMap<Character, Long>>>> cache = new HashMap<>();
 
@@ -41,7 +40,6 @@ public class Solver14 {
         for (int i = 0; i < polymer.length() - 1; i++) {
             count(polymer.charAt(i), polymer.charAt(i + 1), 0);
         }
-        System.out.println(cache);
         return max() - min();
     }
 
@@ -54,7 +52,8 @@ public class Solver14 {
     }
 
     private void count(char x, char y, int i) {
-        if (i == 10) {
+        String key = String.valueOf(x) + String.valueOf(y);
+        if (i == 40) {
             if (letterCounterMap.containsKey(x)) {
                 letterCounterMap.put(x, letterCounterMap.get(x) + 1L);
             } else {
@@ -62,15 +61,25 @@ public class Solver14 {
             }
             return;
         }
-        String key = String.valueOf(x) + String.valueOf(y);
+
         if (reactions.get(key) == null) return;
 
+        if (cache.containsKey(i)) {
+            for (int j = 0; j < cache.get(i).size(); j++) {
+                if (cache.get(i).get(j).containsKey(key)) {
+                    var keys = new ArrayList<>(cache.get(i).get(j).get(key).keySet());
+                    for (var k : keys) {
+                        letterCounterMap.put(k, letterCounterMap.get(k) + cache.get(i).get(j).get(key).get(k));
+                    }
+                    return;
+                }
+            }
+        }
         i = i + 1;
         HashMap<Character, Long> localLetterCounterMap = new HashMap<>(letterCounterMap);
         count(x, reactions.get(key).charAt(0), i);
-
         count(reactions.get(key).charAt(0), y, i);
-        addToCache(localLetterCounterMap, letterCounterMap, i-1, key);
+        addToCache(localLetterCounterMap, letterCounterMap, i - 1, key);
 
     }
 
