@@ -3,7 +3,9 @@ package com.trepcsi.day14;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Solver14 {
@@ -12,7 +14,8 @@ public class Solver14 {
     private final Map<String, String> reactions = new HashMap<>();
     private HashMap<Character, Long> letterCounterMap = new HashMap<>();
     private char lastLetter = 'c';
-    private HashMap<Integer, HashMap<String, HashMap<Character, Integer>>> cache = new HashMap<>();
+
+    private HashMap<Integer, List<HashMap<String, HashMap<Character, Long>>>> cache = new HashMap<>();
 
     public Solver14(String fileName) {
         try {
@@ -38,6 +41,7 @@ public class Solver14 {
         for (int i = 0; i < polymer.length() - 1; i++) {
             count(polymer.charAt(i), polymer.charAt(i + 1), 0);
         }
+        System.out.println(cache);
         return max() - min();
     }
 
@@ -52,7 +56,6 @@ public class Solver14 {
     private void count(char x, char y, int i) {
         if (i == 10) {
             if (letterCounterMap.containsKey(x)) {
-
                 letterCounterMap.put(x, letterCounterMap.get(x) + 1L);
             } else {
                 letterCounterMap.put(x, 1L);
@@ -63,10 +66,36 @@ public class Solver14 {
         if (reactions.get(key) == null) return;
 
         i = i + 1;
-
+        HashMap<Character, Long> localLetterCounterMap = new HashMap<>(letterCounterMap);
         count(x, reactions.get(key).charAt(0), i);
+
         count(reactions.get(key).charAt(0), y, i);
+        addToCache(localLetterCounterMap, letterCounterMap, i-1, key);
 
     }
 
+    private void addToCache(HashMap<Character, Long> localLetterCounterMap, HashMap<Character, Long> letterCounterMap, int i, String sample) {
+        HashMap<String, HashMap<Character, Long>> map = new HashMap<>();
+        HashMap<Character, Long> charCounterMap = new HashMap<>();
+        List<Character> keys = new ArrayList<>(letterCounterMap.keySet());
+        for (var key : keys) {
+            long charCounterDiff;
+
+            if (!localLetterCounterMap.containsKey(key)) {
+                charCounterDiff = letterCounterMap.get(key);
+            } else {
+                charCounterDiff = letterCounterMap.get(key) - localLetterCounterMap.get(key);
+            }
+            charCounterMap.put(key, charCounterDiff);
+            map.put(sample, charCounterMap);
+        }
+        List<HashMap<String, HashMap<Character, Long>>> mapList;
+        if (cache.containsKey(i)) {
+            mapList = cache.get(i);
+        } else {
+            mapList = new ArrayList<>();
+        }
+        mapList.add(map);
+        cache.put(i, mapList);
+    }
 }
