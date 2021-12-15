@@ -5,7 +5,7 @@ import java.io.FileReader;
 
 public class Solver15 {
 
-    private final int N = 100;
+    private int N = 100;
 
     private int[][] graph;
     private int[][] pathCosts;
@@ -46,8 +46,40 @@ public class Solver15 {
     }
 
     public int solveB() {
+        initB();
         dijkstra();
         return pathCosts[pathCosts.length - 1][pathCosts.length - 1];
+    }
+
+    private void initB() {
+        var newN = graph.length * 5;
+        N = newN;
+        int[][] newGraph = new int[newN][newN];
+        int[][] newPathCosts = new int[newN][newN];
+        boolean[][] newVisited = new boolean[newN][newN];
+        int[][][] newPrevious = new int[newN][newN][2];
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                for (int x = 0; x < graph.length; x++) {
+                    for (int y = 0; y < graph[0].length; y++) {
+                        newPathCosts[i * graph.length + x][j * graph[0].length + y] = Integer.MAX_VALUE;
+                        newVisited[i * graph.length + x][j * graph[0].length + y] = false;
+                        newPrevious[i * graph.length + x][j * graph[0].length + y][0] = -1;
+                        newPrevious[i * graph.length + x][j * graph[0].length + y][1] = -1;
+
+                        int newValue = ((i + j) + graph[x][y]) % 9;
+                        if (newValue == 0) {
+                            newValue = 9;
+                        }
+                        newGraph[i * graph.length + x][j * graph[0].length + y] = newValue;
+                    }
+                }
+            }
+        }
+        graph = newGraph;
+        pathCosts = newPathCosts;
+        visited = newVisited;
+        previous = newPrevious;
     }
 
     private void dijkstra() {
@@ -69,7 +101,7 @@ public class Solver15 {
                 }
             }
         }
-        if (x != N-1) {
+        if (x != N - 1) {
             if (!visited[x + 1][y]) {
                 int newCost = pathCosts[x][y] + graph[x + 1][y];
                 if (newCost < pathCosts[x + 1][y]) {
@@ -89,7 +121,7 @@ public class Solver15 {
                 }
             }
         }
-        if (y != N-1) {
+        if (y != N - 1) {
             if (!visited[x][y + 1]) {
                 int newCost = pathCosts[x][y] + graph[x][y + 1];
                 if (newCost < pathCosts[x][y + 1]) {
@@ -127,21 +159,5 @@ public class Solver15 {
             }
         }
         return false;
-    }
-
-    private void print() {
-        for (int i = 0; i < graph.length; i++) {
-            for (int j = 0; j < graph[0].length; j++) {
-                System.out.print(graph[i][j]);
-            }
-            System.out.print("\n");
-        }
-        System.out.println();
-        for (int i = 0; i < graph.length; i++) {
-            for (int j = 0; j < graph[0].length; j++) {
-                System.out.print(pathCosts[i][j] + "  ");
-            }
-            System.out.print("\n");
-        }
     }
 }
