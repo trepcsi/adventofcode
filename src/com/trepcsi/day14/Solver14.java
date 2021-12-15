@@ -43,14 +43,6 @@ public class Solver14 {
         return max() - min();
     }
 
-    private long max() {
-        return letterCounterMap.values().stream().max(Long::compare).get();
-    }
-
-    private long min() {
-        return letterCounterMap.values().stream().min(Long::compare).get();
-    }
-
     private void count(char x, char y, int i) {
         String key = String.valueOf(x) + String.valueOf(y);
         if (i == 40) {
@@ -106,5 +98,13 @@ public class Solver14 {
         }
         mapList.add(map);
         cache.put(i, mapList);
+    }
+
+    private long max() {
+        return letterCounterMap.values().stream().max(Long::compare).get();
+    }
+
+    private long min() {
+        return letterCounterMap.values().stream().min(Long::compare).get();
     }
 }
