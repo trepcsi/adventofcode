@@ -12,9 +12,9 @@ public class Solver14 {
 
     private String polymer = "";
     private final Map<String, String> reactions = new HashMap<>();
-    private final HashMap<Character, Long> letterCounterMap = new HashMap<>();
+    private final Map<Character, Long> letterCounterMap = new HashMap<>();
 
-    private HashMap<Integer, List<HashMap<String, HashMap<Character, Long>>>> cache = new HashMap<>();
+    private final Map<Integer, List<Map<String, Map<Character, Long>>>> cache = new HashMap<>();
 
     public Solver14(String fileName) {
         try {
@@ -44,7 +44,7 @@ public class Solver14 {
     }
 
     private void count(char x, char y, int i) {
-        String key = String.valueOf(x) + String.valueOf(y);
+        String reactionLeft = String.valueOf(x) + String.valueOf(y);
         if (i == 40) {
             if (letterCounterMap.containsKey(x)) {
                 letterCounterMap.put(x, letterCounterMap.get(x) + 1L);
@@ -54,14 +54,14 @@ public class Solver14 {
             return;
         }
 
-        if (reactions.get(key) == null) return;
+        if (reactions.get(reactionLeft) == null) return;
 
         if (cache.containsKey(i)) {
-            for (int j = 0; j < cache.get(i).size(); j++) {
-                if (cache.get(i).get(j).containsKey(key)) {
-                    var keys = new ArrayList<>(cache.get(i).get(j).get(key).keySet());
-                    for (var k : keys) {
-                        letterCounterMap.put(k, letterCounterMap.get(k) + cache.get(i).get(j).get(key).get(k));
+            for (int reactionCaches = 0; reactionCaches < cache.get(i).size(); reactionCaches++) {
+                if (cache.get(i).get(reactionCaches).containsKey(reactionLeft)) {
+                    var keys = new ArrayList<>(cache.get(i).get(reactionCaches).get(reactionLeft).keySet());
+                    for (var character : keys) {
+                        letterCounterMap.put(character, letterCounterMap.get(character) + cache.get(i).get(reactionCaches).get(reactionLeft).get(character));
                     }
                     return;
                 }
@@ -69,34 +69,33 @@ public class Solver14 {
         }
         i = i + 1;
         HashMap<Character, Long> localLetterCounterMap = new HashMap<>(letterCounterMap);
-        count(x, reactions.get(key).charAt(0), i);
-        count(reactions.get(key).charAt(0), y, i);
-        addToCache(localLetterCounterMap, letterCounterMap, i - 1, key);
+        count(x, reactions.get(reactionLeft).charAt(0), i);
+        count(reactions.get(reactionLeft).charAt(0), y, i);
+        addToCache(localLetterCounterMap, letterCounterMap, i - 1, reactionLeft);
 
     }
 
-    private void addToCache(HashMap<Character, Long> localLetterCounterMap, HashMap<Character, Long> letterCounterMap, int i, String sample) {
-        HashMap<String, HashMap<Character, Long>> map = new HashMap<>();
-        HashMap<Character, Long> charCounterMap = new HashMap<>();
+    private void addToCache(Map<Character, Long> localLetterCounterMap, Map<Character, Long> letterCounterMap, int i, String sample) {
+        Map<String, Map<Character, Long>> reactionLeftCache = new HashMap<>();
+        Map<Character, Long> charCounterMap = new HashMap<>();
         List<Character> keys = new ArrayList<>(letterCounterMap.keySet());
         for (var key : keys) {
             long charCounterDiff;
-
             if (!localLetterCounterMap.containsKey(key)) {
                 charCounterDiff = letterCounterMap.get(key);
             } else {
                 charCounterDiff = letterCounterMap.get(key) - localLetterCounterMap.get(key);
             }
             charCounterMap.put(key, charCounterDiff);
-            map.put(sample, charCounterMap);
+            reactionLeftCache.put(sample, charCounterMap);
         }
-        List<HashMap<String, HashMap<Character, Long>>> mapList;
+        List<Map<String, Map<Character, Long>>> mapList;
         if (cache.containsKey(i)) {
             mapList = cache.get(i);
         } else {
             mapList = new ArrayList<>();
         }
-        mapList.add(map);
+        mapList.add(reactionLeftCache);
         cache.put(i, mapList);
     }
 
