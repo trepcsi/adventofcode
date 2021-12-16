@@ -3,13 +3,14 @@ package com.trepcsi;
 
 import com.trepcsi.day14.Solver14;
 import com.trepcsi.day15.Solver15;
+import com.trepcsi.day16.Solver16;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Solver14 solver14 = new Solver14("./src/com/trepcsi/day14/input.txt");
-        System.out.println(solver14.solveA());
+        Solver16 solver16 = new Solver16("./src/com/trepcsi/day16/test.txt");
+        System.out.println(solver16.solveA());
 
     }
 }
